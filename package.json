@@ -1,0 +1,17 @@
+{
+  "name": "landing-astri",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing Page — Rede Estratégica de Talentos para RI (Astri Solutions)",
+  "scripts": {
+    "build": "sass scss/import.scss css/import.min.css --style=compressed --no-source-map",
+    "watch": "sass --watch scss/import.scss css/import.min.css --style=compressed",
+    "dev": "sass --watch scss/import.scss css/import.min.css --style=expanded"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "sass": "^1.99.0"
+  }
+}

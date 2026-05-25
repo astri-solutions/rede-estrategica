@@ -1,0 +1,31 @@
+// =====================================================================
+// UTILITÁRIOS
+// =====================================================================
+
+// ---- Destaque inline (palavras-chave em verde) ----
+.highlight        { color: var(--brand-primary-dark); }
+.highlight-light  { color: var(--brand-primary); }
+
+// ---- Container principal — largura responsiva ----
+//
+// > 1540px  → 70%  (telas grandes / ultra-wide)
+// 992-1540px → 80%  (desktop padrão)
+// ≤ 767px   → 90%  (mobile)
+//
+.astri-container {
+  width: 80%;
+  max-width: 80%;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Telas grandes — containers em 70%
+@media (min-width: #{$breakpoint-xl + 1px}) {
+  .astri-container { width: 70%; max-width: 70%; }
+}
+
+// Mobile — containers em 90%
+@media (max-width: $breakpoint-sm - 1px) {
+  .astri-container { width: 90%; max-width: 90%; }
+}

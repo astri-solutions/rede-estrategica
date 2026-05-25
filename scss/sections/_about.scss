@@ -1,0 +1,35 @@
+// =====================================================================
+// SEÇÃO SOBRE — "Conectando o ecossistema de RI"
+// =====================================================================
+
+.sobre-section {
+  padding: var(--section-margin-vertical) 0 80px;
+  background-color: var(--gray-0);
+}
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.sobre-title { font-size: var(--fs-h3); }
+
+.sobre-text {
+  font-size: var(--fs-large);
+  line-height: 1.6;
+  color: var(--text-body);
+
+  + .sobre-text { margin-top: 24px; }
+}
+
+// =====================================================================
+// RESPONSIVO
+// =====================================================================
+@media (max-width: $breakpoint-md - 1px) {
+  .sobre-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

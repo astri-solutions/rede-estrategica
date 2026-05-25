@@ -1,0 +1,61 @@
+// =====================================================================
+// BOTÕES — 3 variantes
+// =====================================================================
+
+.btn-astri {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  min-height: 48px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--fs-large);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+
+  // ---- Primary: verde menta preenchido ----
+  &-primary {
+    background-color: var(--brand-primary);
+    color: var(--brand-secondary);
+    border-color: var(--brand-primary);
+
+    &:hover {
+      background-color: var(--brand-primary-dark);
+      border-color: var(--brand-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      color: var(--brand-secondary);
+    }
+  }
+
+  // ---- Secondary: outline branco (sobre fundo escuro) ----
+  &-secondary {
+    background-color: transparent;
+    color: var(--text-on-dark);
+    border-color: var(--text-on-dark);
+
+    &:hover {
+      background-color: var(--text-on-dark);
+      color: var(--brand-secondary);
+    }
+  }
+
+  // ---- Ghost: texto sem fundo ----
+  &-ghost {
+    background-color: transparent;
+    color: var(--text-body);
+    border-color: transparent;
+    padding: 14px 20px;
+
+    &:hover {
+      color: var(--brand-secondary);
+      text-decoration: underline;
+    }
+  }
+}

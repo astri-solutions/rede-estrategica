@@ -1,0 +1,79 @@
+// =====================================================================
+// DESIGN TOKENS — extraídos das variáveis do Figma
+// =====================================================================
+
+// ---------- Variáveis SASS (compile-time, usadas em mixins/breakpoints)
+$breakpoint-xs:  576px;
+$breakpoint-sm:  768px;
+$breakpoint-md:  992px;
+$breakpoint-lg:  1200px;
+$breakpoint-xl:  1540px;
+
+// ---------- CSS Custom Properties (runtime, podem ser trocadas para temas)
+:root {
+  // ---- Cores de marca ----
+  --brand-primary:        #00d865;  // Verde menta — CTAs, destaques
+  --brand-primary-dark:   #00c75a;  // Verde menta escuro — hover, palavras-chave
+  --brand-secondary:      #0b5b68;  // Verde escuro — fundos imersivos
+  --brand-secondary-deep: #003b45;  // Verde profundo
+  --brand-tertiary:       #f9f9f4;  // Off-white quente
+
+  // ---- Escala de cinzas ----
+  --gray-0:   #ffffff;
+  --gray-50:  #fafafa;
+  --gray-100: #efefef;
+  --gray-300: #dadada;
+  --gray-500: #949494;
+  --gray-700: #6f6f6f;
+  --gray-800: #393939;
+  --gray-900: #262626;
+  --gray-950: #141414;
+
+  // ---- Cores de texto ----
+  --text-title:    #0b5b68;
+  --text-heading:  #393939;
+  --text-body:     #6f6f6f;
+  --text-muted:    #949494;
+  --text-on-dark:  #ffffff;
+  --text-accent:   #00c75a;
+
+  // ---- Fundos de input ----
+  --input-bg:        #eef5f7;
+  --input-bg-focus:  #e3eff2;
+
+  // ---- Tipografia ----
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  // ---- Tamanhos ----
+  --fs-h1:     56px;
+  --fs-h2:     40px;
+  --fs-h3:     32px;
+  --fs-h4:     28px;
+  --fs-h5:     24px;
+  --fs-h6:     20px;
+  --fs-xlarge: 18px;
+  --fs-large:  16px;
+  --fs-medium: 14px;
+
+  // ---- Espaçamento ----
+  --section-margin-side:     150px;
+  --section-margin-vertical: 112px;
+  --section-spacing:         72px;
+  --container-max:           1540px;
+  --container-gutter:        32px;
+
+  // ---- Bordas / sombras ----
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-pill: 999px;
+  --shadow-sm:   0 2px 8px rgba(11, 91, 104, 0.06);
+  --shadow-md:   0 8px 24px rgba(11, 91, 104, 0.10);
+  --shadow-lg:   0 24px 64px rgba(11, 91, 104, 0.18);
+
+  // ---- Transições ----
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}

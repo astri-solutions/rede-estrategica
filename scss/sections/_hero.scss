@@ -1,0 +1,144 @@
+// =====================================================================
+// HERO — banner full-width com imagem dos executivos
+// =====================================================================
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 90vh;
+  padding: 140px 0 100px;
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+// ---- Imagem de fundo principal (background-image) ----
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-color: var(--brand-secondary);
+  background-image: url('https://www.astri.solutions/campanhas/rede-estrategica-talentos/imagens/bg-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+  // Overlay verde para legibilidade do texto à esquerda
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      90deg,
+      rgba(11, 91, 104, 0.85) 0%,
+      rgba(11, 91, 104, 0.55) 35%,
+      rgba(11, 91, 104, 0.20) 70%,
+      rgba(11, 91, 104, 0.10) 100%
+    );
+    pointer-events: none;
+  }
+}
+
+// ---- Grid 2 colunas ----
+.hero-content {
+  width: 80%;
+  max-width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 64px;
+  align-items: end;
+  color: var(--text-on-dark);
+}
+.hero-content-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.hero-content-right { padding-bottom: 12px; }
+
+// ---- Tag "Relações com Investidores" — alinha à esquerda ----
+.hero-tag {
+  align-self: flex-start;
+  color: var(--text-on-dark) !important; // override do tag-decorative
+
+  .tag-arrow { color: var(--brand-primary); }
+}
+
+// ---- Título ----
+.hero-title {
+  color: var(--text-on-dark);
+  font-size: clamp(40px, 4.5vw, 72px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+// ---- Subtítulo ----
+.hero-subtitle {
+  font-size: var(--fs-xlarge);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 520px;
+  margin: 0;
+
+  strong { font-weight: 700; }
+}
+
+// ---- Seta de scroll ----
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 10%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-primary);
+  animation: bounce 2s infinite;
+  transition: color var(--transition-base);
+
+  &:hover { color: var(--brand-primary-dark); }
+}
+
+// =====================================================================
+// RESPONSIVO
+// =====================================================================
+@media (min-width: #{$breakpoint-xl + 1px}) {
+  .hero-content { width: 70%; max-width: 70%; }
+  .hero-scroll { left: 15%; }
+}
+
+@media (max-width: $breakpoint-md - 1px) {
+  .hero-section {
+    padding: 120px 0 80px;
+    min-height: 75vh;
+  }
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .hero-scroll { left: 10%; }
+}
+
+@media (max-width: $breakpoint-sm - 1px) {
+  .hero-section {
+    padding: 100px 0 80px;
+    min-height: 70vh;
+  }
+  .hero-content {
+    width: 90%;
+    max-width: 90%;
+    gap: 24px;
+  }
+  .hero-scroll {
+    left: 5%;
+    bottom: 32px;
+  }
+}

@@ -1,0 +1,135 @@
+// =====================================================================
+// FOOTER
+// =====================================================================
+
+.site-footer {
+  background-color: var(--gray-0);
+  padding: 80px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1.4fr auto;
+  gap: 48px;
+  padding-bottom: 64px;
+  align-items: start;
+}
+
+.footer-col-label {
+  font-size: var(--fs-medium);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 12px;
+}
+
+.footer-col-text {
+  font-size: var(--fs-medium);
+  color: var(--text-body);
+  line-height: 1.5;
+
+  a {
+    color: var(--brand-secondary);
+    text-decoration: underline;
+  }
+}
+
+// ---- Redes sociais ----
+.footer-social {
+  display: flex;
+  gap: 12px;
+
+  a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--brand-secondary);
+    color: var(--text-on-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+
+    &:hover {
+      background-color: var(--brand-primary);
+      color: var(--brand-secondary);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ---- Marca decorativa gigante ----
+.footer-brand-mark {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 120px;
+  margin-bottom: -10px;
+  display: flex;
+  align-items: flex-end;
+
+  span {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(80px, 14vw, 220px);
+    line-height: 1;
+    color: var(--brand-secondary);
+    opacity: 0.08;
+    white-space: nowrap;
+    letter-spacing: -0.04em;
+  }
+}
+
+// ---- Footer inferior ----
+.footer-bottom {
+  border-top: 1px solid var(--gray-100);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  a {
+    font-size: var(--fs-medium);
+    color: var(--text-body);
+
+    &:hover { color: var(--brand-secondary); }
+  }
+}
+
+.footer-copy,
+.footer-seal {
+  font-size: var(--fs-medium);
+  color: var(--text-muted);
+}
+
+// =====================================================================
+// RESPONSIVO
+// =====================================================================
+@media (max-width: $breakpoint-md - 1px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: $breakpoint-sm - 1px) {
+  .footer-top { grid-template-columns: 1fr; }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-legal {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,43 @@
+// =====================================================================
+// TAG DECORATIVA — pill com setas → ←
+// Usada em: Hero, Diferencial, Contato, Card Oportunidades
+// =====================================================================
+
+.tag-decorative {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 22px;
+  border: 1.5px solid var(--brand-primary);
+  border-radius: var(--radius-pill);
+  background-color: transparent;
+  font-family: var(--font-body);
+  font-size: var(--fs-medium);
+  font-weight: 600;
+  color: var(--brand-primary-dark);
+  letter-spacing: 0.01em;
+
+  .tag-arrow {
+    color: var(--brand-primary);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  // ---- Variante: texto branco (sobre fundo escuro) ----
+  &--on-dark {
+    color: var(--text-on-dark);
+  }
+
+  // ---- Variante: ponto verde no lugar de seta esquerda ----
+  // (mantida para flexibilidade futura)
+  &--with-dot {
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--brand-primary);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+  }
+}
