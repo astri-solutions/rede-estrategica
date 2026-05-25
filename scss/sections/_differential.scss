@@ -96,6 +96,7 @@
   background-position: center;
   isolation: isolate;
   transition: background-image 400ms ease;
+  min-height: 500px;
 
   // Overlay verde forte estilo "duotone" sobre a foto
   &::before {
