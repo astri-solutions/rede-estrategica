@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Astri Solutions — Rede estratégica de talentos para Relações com Investidores. Conectando companhias abertas, executivos e profissionais de RI.">
+  <meta name="theme-color" content="#0b5b68">
+  <title>Astri Solutions — Rede Estratégica de Talentos para RI</title>
+
+  <!-- ===== FONTS ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ===== BOOTSTRAP 5.3.8 ===== -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- ===== CSS COMPILADO E MINIFICADO ===== -->
+  <link rel="stylesheet" href="css/import.min.css">
+</head>
+<body>
+
+    <div class="form-card">
+        <div class="form-tabs" role="tablist" aria-label="Selecione seu perfil">
+        <button type="button" class="form-tab active" role="tab" aria-selected="true" data-target="empresa">Sou Empresa</button>
+        <button type="button" class="form-tab" role="tab" aria-selected="false" data-target="profissional">Sou Profissional</button>
+        </div>
+
+        <!--
+        Formulário preparado para integração futura com CMS Workr/ASPX.
+        Convenção de nomes mantida amigável a controles asp:TextBox:
+            name="txtNome"   →  <asp:TextBox ID="txtNome" runat="server">
+            name="txtEmail"  →  <asp:TextBox ID="txtEmail" runat="server">
+            name="txtEmpresa", "txtCargo", "txtMensagem"
+        Endpoint do action e runat="server" do <form> serão adicionados na adaptação ASPX.
+        -->
+        <form id="formContato" method="post" novalidate>
+
+        <div class="form-field">
+            <label for="txtNome" class="form-label">
+            Nome: <span class="required" aria-label="obrigatório">*</span>
+            </label>
+            <input type="text" id="txtNome" name="txtNome"
+                    class="form-control-astri"
+                    placeholder="Como devemos chamar você"
+                    required autocomplete="name">
+        </div>
+
+        <div class="form-field">
+            <label for="txtEmail" class="form-label">
+            Email: <span class="required" aria-label="obrigatório">*</span>
+            </label>
+            <input type="email" id="txtEmail" name="txtEmail"
+                    class="form-control-astri"
+                    placeholder="seu@email.com.br"
+                    required autocomplete="email">
+        </div>
+
+        <div class="form-field">
+            <label for="txtEmpresa" class="form-label">
+            Empresa: <span class="required" aria-label="obrigatório">*</span>
+            </label>
+            <input type="text" id="txtEmpresa" name="txtEmpresa"
+                    class="form-control-astri"
+                    placeholder="Nome da empresa"
+                    required autocomplete="organization">
+        </div>
+
+        <div class="form-field">
+            <label for="txtCargo" class="form-label">
+            Cargo: <span class="required" aria-label="obrigatório">*</span>
+            </label>
+            <input type="text" id="txtCargo" name="txtCargo"
+                    class="form-control-astri"
+                    placeholder="Ex: CFO, Diretor de RI"
+                    required autocomplete="organization-title">
+        </div>
+
+        <div class="form-field">
+            <label for="txtMensagem" class="form-label">
+            Como podemos te ajudar? <span class="required" aria-label="obrigatório">*</span>
+            </label>
+            <textarea id="txtMensagem" name="txtMensagem"
+                    class="form-control-astri"
+                    rows="4"
+                    placeholder="Conte brevemente o que você procura..."
+                    required></textarea>
+        </div>
+
+        <p class="form-privacy">
+            Seus dados são tratados em conformidade com a nossa <a href="#">Política de Privacidade</a> e a LGPD.
+        </p>
+
+        <!-- Placeholder reCAPTCHA. Substituir por g-recaptcha no Workr -->
+        <div class="form-recaptcha" aria-label="Verificação reCAPTCHA">
+            <div class="form-recaptcha-checkbox"></div>
+            <span class="form-recaptcha-text">I'm not a robot</span>
+        </div>
+
+        <div class="form-actions">
+            <button type="reset" class="btn-astri btn-astri-ghost">Limpar</button>
+            <button type="submit" class="btn-astri btn-astri-primary">Enviar fale agora</button>
+        </div>
+        </form>
+    </div>
+
+    <!-- ===== BOOTSTRAP JS ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ===== SCRIPTS DA APLICAÇÃO ===== -->
+    <script src="scripts/navbar.js" defer></script>
+    <script src="scripts/reveal.js" defer></script>
+    <script src="scripts/carousel.js" defer></script>
+    <script src="scripts/tabs.js" defer></script>
+    <script src="scripts/form.js" defer></script>
+
+</body>
+</html>
