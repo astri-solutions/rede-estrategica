@@ -13,7 +13,7 @@
   display: grid;
   grid-template-columns: 1fr 1.4fr 1.4fr auto;
   gap: 48px;
-  padding-bottom: 64px;
+  padding-bottom: 24px;
   align-items: start;
 }
 
@@ -64,10 +64,16 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 150px;
-  margin-bottom: 0px;
+  height: auto;
+  margin-bottom: 0;
   display: flex;
   align-items: flex-end;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 }
 
 // ---- Footer inferior ----
@@ -106,14 +112,10 @@
 // RESPONSIVO
 // =====================================================================
 @media (max-width: $breakpoint-md - 1px) {
-  .footer-top { grid-template-columns: 1fr 1fr; }
-
-  .footer-brand-mark {
-    height: 124px;
-  }
+  .footer-top { grid-template-columns: 1fr; }
 
   .footer-top {
-    padding-bottom: 64px;
+    padding-bottom: 24px;
   }
 }
 
@@ -128,10 +130,6 @@
   .footer-legal {
     flex-direction: column;
     gap: 12px;
-  }
-
-  .footer-brand-mark img{
-    height: 64px;
   }
 
   .footer-top {

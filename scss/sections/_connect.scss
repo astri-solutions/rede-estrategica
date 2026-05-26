@@ -71,6 +71,7 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  transition: height 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .conecte-track {
@@ -105,18 +106,13 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(
-      135deg,
-      rgba(11, 91, 104, 0.88) 0%,
-      rgba(0, 70, 80, 0.78) 100%
-    );
   }
 
   &[data-panel="empresa"]::before {
-    background-image: url('https://www.astri.solutions/campanhas/rede-estrategica-talentos/imagens/oportunidades/bg-oportunidades-empresas.jpg');
+    background-image: url('../imgs/oportunidades/bg-oportunidades-empresas.jpg');
   }
   &[data-panel="profissional"]::before {
-    background-image: url('https://www.astri.solutions/campanhas/rede-estrategica-talentos/imagens/oportunidades/bg-oportunidades-profissionais.jpg');
+    background-image: url('../imgs/oportunidades/bg-oportunidades-profissionais.jpg');
   }
 }
 
@@ -305,19 +301,22 @@
   }
 
   .conecte-grid,
+  .conecte-panel[data-panel="empresa"] .conecte-grid,
   .conecte-panel[data-panel="profissional"] .conecte-grid {
     grid-template-columns: 1fr;
-    grid-template-areas: none;
+    grid-template-areas: "image" "content";
     gap: 40px;
 
-    .conecte-content,
-    .conecte-image { grid-area: auto; }
+    .conecte-content { grid-area: content; }
+    .conecte-image   { grid-area: image; }
   }
 
   .conecte-image {
-    aspect-ratio: 16/10;
-    max-width: 520px;
-    margin: 0 auto;
+    height: 350px;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: unset;
+    margin: 0;
   }
 }
 

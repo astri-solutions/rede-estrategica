@@ -241,6 +241,10 @@ textarea.form-control-astri {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
+  .form-info-card {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: $breakpoint-sm - 1px) {
