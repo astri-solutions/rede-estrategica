@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vagas em RI · Astri Rede Estratégica</title>
+<meta name="description" content="Oportunidades exclusivas em Relações com Investidores no mercado brasileiro.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/astri.css">
+
+<style>
+  /* GATE */
+  .gate-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0, 216, 101, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(11, 91, 104, 0.06) 0%, transparent 40%),
+      linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-secondary-deep) 100%);
+    color: var(--text-on-dark);
+    padding: 48px 24px;
+  }
+  .gate-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+  }
+  .gate-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    background: var(--brand-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-secondary-deep);
+  }
+  .gate-card h1 {
+    color: var(--text-on-dark);
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .gate-card h1 .highlight { color: var(--brand-primary); }
+  .gate-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  /* PÁGINA */
+  .nav-top {
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--brand-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--brand-primary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-secondary-deep);
+    font-weight: 900;
+    font-size: 16px;
+  }
+  .nav-user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--brand-tertiary);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    color: var(--text-heading);
+  }
+  .nav-user-badge .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--brand-primary);
+    border-radius: 50%;
+  }
+
+  .hero {
+    padding: 80px 48px 56px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 22px;
+    border: 1.5px solid var(--brand-primary);
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--brand-primary-dark);
+    margin-bottom: 28px;
+  }
+  .hero-tag .tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    animation: pulse 2s infinite;
+  }
+  .hero h1 {
+    font-size: 56px;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+  .hero h1 .highlight { color: var(--brand-primary-dark); }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-body);
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+    padding: 24px;
+    background: var(--brand-tertiary);
+    border-radius: var(--radius-lg);
+  }
+  .stat-card {
+    padding: 8px 16px;
+    border-left: 3px solid var(--brand-primary);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--brand-secondary);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--text-body);
+    font-weight: 500;
+  }
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: 1fr; }
+  }
+
+  .controls-section {
+    padding: 48px 48px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .controls-info {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .controls-info strong { color: var(--brand-secondary); font-weight: 600; }
+
+  .search-wrap {
+    position: relative;
+    min-width: 280px;
+    flex: 1;
+    max-width: 360px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-title);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    border: none;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    color: var(--text-title);
+    background: var(--input-bg);
+    transition: all var(--transition-fast);
+  }
+  .search-input::placeholder { color: var(--text-title); opacity: 0.6; }
+  .search-input:focus {
+    outline: none;
+    background: var(--input-bg-focus);
+    box-shadow: 0 0 0 2px var(--brand-primary);
+  }
+
+  .jobs-list {
+    padding: 32px 48px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 16px;
+  }
+
+  .job-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    padding: 28px 32px;
+    background: var(--gray-0);
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+  }
+  .job-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--brand-primary);
+    transform: scaleY(0);
+    transition: transform var(--transition-base);
+  }
+  .job-card:hover {
+    border-color: var(--brand-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .job-card:hover::before { transform: scaleY(1); }
+  .job-card:hover .job-arrow {
+    background: var(--brand-primary);
+    color: var(--brand-secondary-deep);
+    transform: translate(3px, -3px);
+  }
+
+  .job-main { min-width: 0; }
+  .job-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .job-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-title);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .job-company {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 4px;
+  }
+  .job-location {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .job-desc {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .job-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 80px;
+  }
+  .job-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+  .job-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-pill);
+    background: var(--brand-tertiary);
+    color: var(--brand-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    font-size: 20px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 80px 32px;
+    color: var(--text-body);
+  }
+  .empty-state-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: var(--brand-tertiary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-secondary);
+  }
+  .empty-state h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: var(--brand-secondary);
+  }
+
+  .full-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    color: var(--text-muted);
+    font-size: 14px;
+    gap: 12px;
+  }
+  .full-loader .loader-spinner {
+    width: 32px;
+    height: 32px;
+    color: var(--brand-primary);
+  }
+
+  @media (max-width: 600px) {
+    .nav-top, .hero, .controls-section, .jobs-list { padding-left: 20px; padding-right: 20px; }
+    .hero { padding-top: 48px; padding-bottom: 32px; }
+    .hero h1 { font-size: 36px; }
+    .job-card { grid-template-columns: 1fr; padding: 20px; }
+    .job-aside { flex-direction: row; align-items: center; justify-content: space-between; }
+    .gate-card { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER INICIAL -->
+<div id="initialLoader" class="full-loader">
+  <span class="loader-spinner"></span>
+  Validando acesso...
+</div>
+
+<!-- TELA DE GATE (se sem token válido) -->
+<div id="gateScreen" class="gate-screen hidden">
+  <div class="gate-card">
+    <div class="gate-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h1>Acesso <span class="highlight">restrito</span></h1>
+    <p>
+      Esta página é exclusiva para profissionais cadastrados em nossa Rede Estratégica.
+      Faça seu cadastro gratuito para receber acesso por email.
+    </p>
+    <a href="../" class="btn btn-primary">
+      ← Voltar para o cadastro
+    </a>
+  </div>
+</div>
+
+<!-- PÁGINA -->
+<div id="publicPage" class="hidden">
+  <header class="nav-top">
+    <a class="nav-logo">
+      <span class="nav-logo-mark">A</span>
+      Astri · Rede Estratégica
+    </a>
+    <div class="nav-user-badge">
+      <span class="dot"></span>
+      <span>acesso autorizado</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="hero-tag">
+      <span class="tag-dot"></span>
+      Oportunidades curadas · Brasil
+    </span>
+    <h1>Vagas em <span class="highlight">Relações com Investidores</span></h1>
+    <p class="hero-sub">
+      Uma seleção exclusiva das melhores oportunidades em RI no mercado brasileiro,
+      validada pela nossa equipe antes de ser publicada.
+    </p>
+
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-num" id="statTotal">—</div>
+        <div class="stat-label">Vagas publicadas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statThisWeek">—</div>
+        <div class="stat-label">Nesta semana</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statCompanies">—</div>
+        <div class="stat-label">Empresas</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="controls-section">
+    <div class="controls-info">
+      Última atualização: <strong id="lastUpdate">—</strong>
+    </div>
+    <div class="search-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+      </svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="Buscar empresa, cidade, cargo...">
+    </div>
+  </section>
+
+  <main class="jobs-list" id="jobsList"></main>
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script type="module">
+  import { listPublishedJobs } from '../assets/js/jobs-api.js';
+  import { validateAccessToken, logLeadEvent } from '../assets/js/leads-api.js';
+
+  // ========== EXTRAÇÃO DE TOKEN ==========
+  function getToken() {
+    // 1. URL parameter (chegou da LP)
+    const url = new URL(window.location.href);
+    const fromUrl = url.searchParams.get('t');
+    if (fromUrl) {
+      // Salva e limpa URL (não deixa o token no histórico)
+      sessionStorage.setItem('astri.access_token', fromUrl);
+      url.searchParams.delete('t');
+      window.history.replaceState({}, '', url.toString());
+      return fromUrl;
+    }
+    // 2. Session storage (já validado nesta sessão)
+    return sessionStorage.getItem('astri.access_token');
+  }
+
+  // ========== INICIALIZAÇÃO ==========
+  (async () => {
+    const token = getToken();
+
+    if (!token) {
+      showGate();
+      return;
+    }
+
+    // Valida no servidor
+    const valid = await validateAccessToken(token);
+
+    if (!valid) {
+      sessionStorage.removeItem('astri.access_token');
+      showGate();
+      return;
+    }
+
+    // Registra page view
+    logLeadEvent(token, 'lead.page_viewed', null, {
+      referrer: document.referrer.substring(0, 200),
+    });
+
+    showPage();
+    loadJobs();
+  })();
+
+  function showGate() {
+    document.getElementById('initialLoader').classList.add('hidden');
+    document.getElementById('gateScreen').classList.remove('hidden');
+  }
+
+  function showPage() {
+    document.getElementById('initialLoader').classList.add('hidden');
+    document.getElementById('publicPage').classList.remove('hidden');
+  }
+
+  // ========== JOBS ==========
+  let allJobs = [];
+
+  async function loadJobs() {
+    allJobs = await listPublishedJobs();
+    updateStats();
+    render();
+  }
+
+  function updateStats() {
+    document.getElementById('statTotal').textContent = allJobs.length;
+    const week = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    document.getElementById('statThisWeek').textContent = allJobs.filter(v =>
+      new Date(v.published_at || 0).getTime() > week
+    ).length;
+    document.getElementById('statCompanies').textContent = new Set(allJobs.map(v => v.company)).size;
+
+    if (allJobs.length > 0) {
+      const latest = allJobs.reduce((a, b) =>
+        new Date(a.published_at) > new Date(b.published_at) ? a : b
+      );
+      document.getElementById('lastUpdate').textContent = formatRelative(latest.published_at);
+    }
+  }
+
+  function render() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const filtered = q
+      ? allJobs.filter(v =>
+          v.title.toLowerCase().includes(q) ||
+          v.company.toLowerCase().includes(q) ||
+          (v.location || '').toLowerCase().includes(q)
+        )
+      : allJobs;
+
+    const cont = document.getElementById('jobsList');
+    if (filtered.length === 0) {
+      cont.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <h3>Nenhuma vaga encontrada</h3>
+          <p>${allJobs.length === 0 ? 'Aguarde — novas vagas serão publicadas em breve.' : 'Tente ajustar sua busca.'}</p>
+        </div>`;
+      return;
+    }
+
+    cont.innerHTML = filtered.map(v => `
+      <a class="job-card" href="${escape(v.external_url)}" target="_blank" rel="noopener" data-job-id="${escape(v.id)}">
+        <div class="job-main">
+          <div class="job-meta">
+            <span class="tag tag-primary">Relações com Investidores</span>
+            <span class="tag tag-soft">LinkedIn</span>
+          </div>
+          <h3 class="job-title">${escape(v.title)}</h3>
+          <div class="job-company">${escape(v.company)}</div>
+          <div class="job-location">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            ${escape(v.location || 'Brasil')}
+          </div>
+          <p class="job-desc">${escape(v.description || '')}</p>
+        </div>
+        <div class="job-aside">
+          <span class="job-date">${formatRelative(v.published_at)}</span>
+          <div class="job-arrow">↗</div>
+        </div>
+      </a>
+    `).join('');
+
+    // Tracking de cliques
+    const token = sessionStorage.getItem('astri.access_token');
+    cont.querySelectorAll('[data-job-id]').forEach(a => {
+      a.addEventListener('click', () => {
+        if (token) logLeadEvent(token, 'lead.job_clicked', a.dataset.jobId);
+      });
+    });
+  }
+
+  // ========== SEARCH ==========
+  let searchTimer;
+  document.getElementById('searchInput').addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(render, 200);
+  });
+
+  // ========== HELPERS ==========
+  function formatRelative(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    if (isNaN(d)) return '—';
+    const diff = Math.floor((Date.now() - d) / (1000 * 60 * 60));
+    if (diff < 1) return 'agora';
+    if (diff < 24) return `há ${diff}h`;
+    const dias = Math.floor(diff / 24);
+    if (dias === 1) return 'ontem';
+    if (dias < 7) return `há ${dias}d`;
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+  }
+  function escape(s) {
+    return (s || '').toString().replace(/[&<>"']/g, m => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[m]);
+  }
+</script>
+
+</body>
+</html>

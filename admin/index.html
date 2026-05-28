@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel Admin · Astri Vagas RI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/astri.css">
+
+<style>
+  body { background: var(--gray-50); }
+
+  .admin-header {
+    background: var(--brand-secondary-deep);
+    color: var(--text-on-dark);
+    padding: 20px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .admin-header h1 {
+    color: var(--text-on-dark);
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+  }
+  .admin-badge {
+    background: var(--brand-primary);
+    color: var(--brand-secondary-deep);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .user-info .user-email {
+    opacity: 0.8;
+  }
+
+  /* TABS */
+  .tabs-nav {
+    background: var(--gray-0);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0 32px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-body);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--brand-secondary); }
+  .tab-btn.active {
+    color: var(--brand-secondary);
+    border-bottom-color: var(--brand-primary);
+  }
+
+  .tab-content {
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--gray-0);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border-left: 3px solid var(--brand-primary);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--brand-secondary);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-body);
+    font-weight: 500;
+  }
+
+  /* GRID PRINCIPAL */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 1100px) { .admin-grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--gray-0);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .card h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: var(--brand-secondary);
+  }
+  .card-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  /* URL VALIDATOR */
+  .url-validator {
+    margin-top: 6px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .url-validator.valid { color: var(--brand-primary-dark); }
+  .url-validator.invalid { color: var(--danger); }
+  .url-validator.neutral { color: var(--text-muted); }
+
+  /* LISTA DE VAGAS NO ADMIN */
+  .admin-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .admin-list-filters {
+    display: flex;
+    gap: 6px;
+  }
+  .admin-filter-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--gray-300);
+    background: transparent;
+    color: var(--text-body);
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  .admin-filter-btn.active {
+    background: var(--brand-secondary);
+    color: var(--text-on-dark);
+    border-color: var(--brand-secondary);
+  }
+  .admin-job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .admin-job-list::-webkit-scrollbar { width: 6px; }
+  .admin-job-list::-webkit-scrollbar-thumb {
+    background: var(--gray-300);
+    border-radius: 3px;
+  }
+  .admin-job-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    padding: 16px;
+    background: var(--gray-0);
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius-md);
+    align-items: center;
+    transition: all var(--transition-fast);
+  }
+  .admin-job-item.unpublished {
+    opacity: 0.55;
+    background: var(--gray-50);
+  }
+  .admin-job-item:hover {
+    border-color: var(--brand-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* TOGGLE */
+  .publish-toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .publish-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .publish-toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--gray-300);
+    border-radius: var(--radius-pill);
+    transition: all var(--transition-base);
+    cursor: pointer;
+  }
+  .publish-toggle-slider::before {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 18px; height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: all var(--transition-base);
+  }
+  .publish-toggle input:checked + .publish-toggle-slider {
+    background: var(--brand-primary);
+  }
+  .publish-toggle input:checked + .publish-toggle-slider::before {
+    transform: translateX(20px);
+  }
+
+  .admin-job-info { min-width: 0; }
+  .admin-job-info h4 {
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--text-title);
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .admin-job-info .company {
+    font-size: 13px;
+    color: var(--text-heading);
+    font-weight: 600;
+  }
+  .admin-job-info .meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .status-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 6px;
+  }
+  .status-badge.published {
+    background: rgba(0, 216, 101, 0.15);
+    color: var(--brand-primary-dark);
+  }
+  .status-badge.unpublished {
+    background: var(--gray-100);
+    color: var(--text-muted);
+  }
+  .admin-job-actions {
+    display: flex;
+    gap: 6px;
+  }
+  .icon-btn {
+    background: transparent;
+    border: 1px solid var(--gray-300);
+    color: var(--text-heading);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  .icon-btn:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-secondary);
+  }
+  .icon-btn.danger {
+    color: var(--danger);
+    border-color: var(--danger);
+  }
+  .icon-btn.danger:hover {
+    background: var(--danger);
+    color: var(--text-on-dark);
+  }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--gray-50);
+    color: var(--text-heading);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--text-body);
+  }
+  .data-table tr:hover { background: var(--gray-50); }
+  .data-table .col-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 91, 104, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeIn 200ms;
+  }
+  .modal {
+    background: var(--gray-0);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal h2 { font-size: 22px; margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+
+  /* EMPTY STATES */
+  .empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+  }
+  .empty svg { opacity: 0.5; margin-bottom: 12px; }
+
+  /* LOADING */
+  .full-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    color: var(--text-muted);
+    font-size: 14px;
+    gap: 12px;
+  }
+  .full-loader .loader-spinner {
+    width: 32px;
+    height: 32px;
+    color: var(--brand-primary);
+  }
+
+  @media (max-width: 600px) {
+    .admin-header { padding: 16px 20px; }
+    .tab-content { padding: 20px; }
+    .tabs-nav { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LOADING INICIAL -->
+<div id="initialLoader" class="full-loader">
+  <span class="loader-spinner"></span>
+  Verificando acesso...
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+
+  <header class="admin-header">
+    <h1>
+      Gestão de Vagas
+      <span class="admin-badge">Admin</span>
+    </h1>
+    <div class="user-info">
+      <span class="user-email" id="userEmail"></span>
+      <button class="btn btn-ghost" id="logoutBtn" style="color: white; border-color: rgba(255,255,255,0.3); padding: 8px 16px; font-size: 13px;">
+        Sair
+      </button>
+    </div>
+  </header>
+
+  <nav class="tabs-nav">
+    <button class="tab-btn active" data-tab="dashboard">📊 Dashboard</button>
+    <button class="tab-btn" data-tab="jobs">💼 Vagas</button>
+    <button class="tab-btn" data-tab="leads">👥 Leads</button>
+    <button class="tab-btn" data-tab="audit">📋 Audit log</button>
+  </nav>
+
+  <!-- TAB: DASHBOARD -->
+  <section id="tab-dashboard" class="tab-content">
+    <div class="stats-grid" id="statsGrid">
+      <!-- preenchido via JS -->
+    </div>
+
+    <div class="card">
+      <h2>Atividade recente</h2>
+      <p class="card-sub">Últimos 20 eventos do sistema.</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Quando</th>
+            <th>Evento</th>
+            <th>Detalhe</th>
+          </tr>
+        </thead>
+        <tbody id="recentActivityBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB: JOBS -->
+  <section id="tab-jobs" class="tab-content hidden">
+    <div class="admin-grid">
+
+      <!-- Form de cadastro -->
+      <aside class="card">
+        <h2>Adicionar nova vaga</h2>
+        <p class="card-sub">Cole o link do LinkedIn e preencha os campos.</p>
+
+        <div class="form-field">
+          <label class="form-label">
+            Link da vaga (LinkedIn) <span class="required">*</span>
+          </label>
+          <input type="url" class="form-control" id="formLink" placeholder="https://www.linkedin.com/jobs/view/...">
+          <div class="url-validator neutral" id="urlValidator">
+            <span>↳ Cole o link da vaga</span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">
+            Título da vaga <span class="required">*</span>
+          </label>
+          <input type="text" class="form-control" id="formTitle" placeholder="ex: Analista de RI Pleno">
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Empresa <span class="required">*</span></label>
+            <input type="text" class="form-control" id="formCompany" placeholder="ex: Petrobras">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Localização</label>
+            <input type="text" class="form-control" id="formLocation" placeholder="ex: São Paulo, SP">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">
+            Descrição <span class="hint">(opcional, 2-3 linhas)</span>
+          </label>
+          <textarea class="form-control" id="formDesc" placeholder="Cole aqui o resumo da vaga..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-ghost" id="clearFormBtn">Limpar</button>
+          <button class="btn btn-primary" id="saveJobBtn">
+            <span id="saveJobText">✓ Cadastrar e publicar</span>
+            <span id="saveJobLoader" class="loader-spinner hidden"></span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Lista de vagas -->
+      <section class="card">
+        <div class="admin-list-header">
+          <div>
+            <h2>Vagas cadastradas</h2>
+            <p class="card-sub" style="margin-bottom: 0;"><span id="adminTotalCount">0</span> vagas</p>
+          </div>
+          <div class="admin-list-filters">
+            <button class="admin-filter-btn active" data-filter="all">Todas</button>
+            <button class="admin-filter-btn" data-filter="published">Publicadas</button>
+            <button class="admin-filter-btn" data-filter="unpublished">Despublicadas</button>
+          </div>
+        </div>
+        <div class="admin-job-list" id="adminJobList"></div>
+      </section>
+
+    </div>
+  </section>
+
+  <!-- TAB: LEADS -->
+  <section id="tab-leads" class="tab-content hidden">
+    <div class="card">
+      <h2>Leads cadastrados</h2>
+      <p class="card-sub">Pessoas que se cadastraram pela LP para receber acesso às vagas.</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>UTM</th>
+            <th>Cadastrado em</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB: AUDIT -->
+  <section id="tab-audit" class="tab-content hidden">
+    <div class="card">
+      <div class="admin-list-header">
+        <div>
+          <h2>Audit log</h2>
+          <p class="card-sub" style="margin-bottom: 0;">Histórico de eventos do sistema.</p>
+        </div>
+        <select id="auditFilter" class="form-control" style="max-width: 240px;">
+          <option value="">Todos os eventos</option>
+          <option value="auth.login">Login admin</option>
+          <option value="job.created">Vaga criada</option>
+          <option value="job.updated">Vaga editada</option>
+          <option value="job.published">Vaga publicada</option>
+          <option value="job.unpublished">Vaga despublicada</option>
+          <option value="job.deleted">Vaga deletada</option>
+          <option value="lead.access_granted">Acesso concedido</option>
+          <option value="lead.page_viewed">Página visualizada</option>
+          <option value="lead.job_clicked">Vaga clicada</option>
+        </select>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Quando</th>
+            <th>Evento</th>
+            <th>Ator</th>
+            <th>Alvo</th>
+            <th>Detalhes</th>
+          </tr>
+        </thead>
+        <tbody id="auditTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<!-- MODAL DE EDIÇÃO -->
+<div class="modal-overlay hidden" id="editModal">
+  <div class="modal">
+    <h2>Editar vaga</h2>
+    <p class="modal-sub">Ajuste os dados e salve.</p>
+
+    <div class="form-field">
+      <label class="form-label">Link da vaga <span class="required">*</span></label>
+      <input type="url" class="form-control" id="editLink">
+    </div>
+    <div class="form-field">
+      <label class="form-label">Título <span class="required">*</span></label>
+      <input type="text" class="form-control" id="editTitle">
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">Empresa <span class="required">*</span></label>
+        <input type="text" class="form-control" id="editCompany">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Localização</label>
+        <input type="text" class="form-control" id="editLocation">
+      </div>
+    </div>
+    <div class="form-field">
+      <label class="form-label">Descrição</label>
+      <textarea class="form-control" id="editDesc"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-ghost" id="cancelEditBtn">Cancelar</button>
+      <button class="btn btn-primary" id="saveEditBtn">✓ Salvar alterações</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script type="module">
+  import { requireAdmin, logout, startIdleTimeout } from '../assets/js/auth.js';
+  import {
+    listAllJobs, createJob, updateJob, togglePublish, deleteJob
+  } from '../assets/js/jobs-api.js';
+  import {
+    listLeads, getDashboardStats, listAuditLog
+  } from '../assets/js/leads-api.js';
+
+  // ========== GUARD ==========
+  // Verifica acesso ANTES de mostrar qualquer coisa
+  const profile = await requireAdmin();
+  if (!profile) {
+    // requireAdmin já redirecionou
+    throw new Error('Sem acesso');
+  }
+
+  // Esconde loader, mostra app
+  document.getElementById('initialLoader').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  document.getElementById('userEmail').textContent = profile.email;
+
+  // Inicia timeout de inatividade
+  startIdleTimeout();
+
+  // ========== ESTADO ==========
+  let state = {
+    activeTab: 'dashboard',
+    jobFilter: 'all',
+    auditFilter: '',
+    editingId: null,
+  };
+
+  // ========== TABS ==========
+  function switchTab(tab) {
+    state.activeTab = tab;
+    document.querySelectorAll('[data-tab]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
+    document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`tab-${tab}`).classList.remove('hidden');
+
+    if (tab === 'dashboard') loadDashboard();
+    if (tab === 'jobs') loadJobs();
+    if (tab === 'leads') loadLeads();
+    if (tab === 'audit') loadAudit();
+  }
+  document.querySelectorAll('[data-tab]').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // ========== DASHBOARD ==========
+  async function loadDashboard() {
+    const stats = await getDashboardStats();
+    const grid = document.getElementById('statsGrid');
+    if (!stats) {
+      grid.innerHTML = '<p class="text-muted">Erro ao carregar estatísticas.</p>';
+      return;
+    }
+    const cards = [
+      { num: stats.published_jobs, label: 'Vagas publicadas' },
+      { num: stats.unpublished_jobs, label: 'Vagas em rascunho' },
+      { num: stats.total_leads, label: 'Leads totais' },
+      { num: stats.leads_this_week, label: 'Leads nesta semana' },
+      { num: stats.clicks_this_week, label: 'Cliques esta semana' },
+      { num: stats.active_leads_30d, label: 'Leads ativos (30d)' },
+    ];
+    grid.innerHTML = cards.map(c => `
+      <div class="stat-card">
+        <div class="stat-num">${c.num ?? 0}</div>
+        <div class="stat-label">${c.label}</div>
+      </div>
+    `).join('');
+
+    // Atividade recente
+    const { data: audit } = await listAuditLog({ limit: 20 });
+    const body = document.getElementById('recentActivityBody');
+    if (!audit || audit.length === 0) {
+      body.innerHTML = '<tr><td colspan="3" class="text-center text-muted">Sem eventos ainda.</td></tr>';
+      return;
+    }
+    body.innerHTML = audit.map(e => `
+      <tr>
+        <td class="col-time">${formatTime(e.created_at)}</td>
+        <td><strong>${eventLabel(e.event_type)}</strong></td>
+        <td class="text-muted">${eventDetail(e)}</td>
+      </tr>
+    `).join('');
+  }
+
+  // ========== JOBS ==========
+  async function loadJobs() {
+    const { data, error } = await listAllJobs({ filter: state.jobFilter });
+    const cont = document.getElementById('adminJobList');
+    document.getElementById('adminTotalCount').textContent = data?.length || 0;
+
+    if (error) {
+      cont.innerHTML = `<p class="text-muted">Erro: ${escape(error)}</p>`;
+      return;
+    }
+    if (data.length === 0) {
+      cont.innerHTML = `
+        <div class="empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+          <p>Nenhuma vaga ${state.jobFilter === 'all' ? 'cadastrada' : state.jobFilter === 'published' ? 'publicada' : 'despublicada'}.</p>
+        </div>`;
+      return;
+    }
+
+    cont.innerHTML = data.map(v => `
+      <div class="admin-job-item ${v.is_published ? '' : 'unpublished'}">
+        <label class="publish-toggle" title="${v.is_published ? 'Despublicar' : 'Publicar'}">
+          <input type="checkbox" ${v.is_published ? 'checked' : ''} data-toggle="${v.id}">
+          <span class="publish-toggle-slider"></span>
+        </label>
+        <div class="admin-job-info">
+          <h4>
+            <span class="status-badge ${v.is_published ? 'published' : 'unpublished'}">
+              ${v.is_published ? '● publicada' : '○ rascunho'}
+            </span>
+            ${escape(v.title)}
+          </h4>
+          <div class="company">${escape(v.company)} · <span style="color:var(--text-muted); font-weight:400;">${escape(v.location || 'Brasil')}</span></div>
+          <div class="meta">Cadastrada ${formatRelative(v.created_at)} · ${v.click_count} cliques</div>
+        </div>
+        <div class="admin-job-actions">
+          <button class="icon-btn" data-edit="${v.id}">✎ Editar</button>
+          <button class="icon-btn danger" data-delete="${v.id}">Excluir</button>
+        </div>
+      </div>
+    `).join('');
+
+    cont.querySelectorAll('[data-toggle]').forEach(input => {
+      input.addEventListener('change', () => handleToggle(input.dataset.toggle, input.checked));
+    });
+    cont.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.addEventListener('click', () => openEdit(btn.dataset.edit, data));
+    });
+    cont.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.addEventListener('click', () => handleDelete(btn.dataset.delete, data));
+    });
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.admin-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.admin-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.jobFilter = btn.dataset.filter;
+      loadJobs();
+    });
+  });
+
+  // URL validator
+  document.getElementById('formLink').addEventListener('input', e => {
+    const val = e.target.value.trim();
+    const v = document.getElementById('urlValidator');
+    if (!val) {
+      v.className = 'url-validator neutral';
+      v.innerHTML = '<span>↳ Cole o link da vaga</span>';
+    } else if (/^https?:\/\/(www\.)?linkedin\.com\/jobs\//i.test(val)) {
+      v.className = 'url-validator valid';
+      v.innerHTML = '<span>✓ Link do LinkedIn detectado</span>';
+    } else if (/^https?:\/\//i.test(val)) {
+      v.className = 'url-validator invalid';
+      v.innerHTML = '<span>⚠ URL válida, mas não parece ser do LinkedIn</span>';
+    } else {
+      v.className = 'url-validator invalid';
+      v.innerHTML = '<span>✕ URL inválida</span>';
+    }
+  });
+
+  // Save
+  document.getElementById('saveJobBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('saveJobBtn');
+    const txt = document.getElementById('saveJobText');
+    const ldr = document.getElementById('saveJobLoader');
+
+    const payload = {
+      title: document.getElementById('formTitle').value,
+      company: document.getElementById('formCompany').value,
+      location: document.getElementById('formLocation').value,
+      description: document.getElementById('formDesc').value,
+      external_url: document.getElementById('formLink').value,
+    };
+
+    btn.disabled = true;
+    txt.textContent = 'Salvando...';
+    ldr.classList.remove('hidden');
+
+    const result = await createJob(payload);
+
+    btn.disabled = false;
+    txt.textContent = '✓ Cadastrar e publicar';
+    ldr.classList.add('hidden');
+
+    if (result.error) {
+      showToast(result.error, 'error');
+      return;
+    }
+    showToast(`Vaga "${result.data.title}" publicada ✓`, 'success');
+    clearForm();
+    loadJobs();
+  });
+
+  document.getElementById('clearFormBtn').addEventListener('click', clearForm);
+  function clearForm() {
+    ['formLink', 'formTitle', 'formCompany', 'formLocation', 'formDesc'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('urlValidator').className = 'url-validator neutral';
+    document.getElementById('urlValidator').innerHTML = '<span>↳ Cole o link da vaga</span>';
+  }
+
+  async function handleToggle(id, publish) {
+    const result = await togglePublish(id, publish);
+    if (result.error) {
+      showToast(result.error, 'error');
+      loadJobs();
+      return;
+    }
+    showToast(publish ? 'Vaga publicada' : 'Vaga despublicada', publish ? 'success' : 'info');
+    loadJobs();
+  }
+
+  async function handleDelete(id, list) {
+    const v = list.find(x => x.id === id);
+    if (!v) return;
+    if (!confirm(`Excluir permanentemente "${v.title}"?\n\nEsta ação não pode ser desfeita.`)) return;
+    const result = await deleteJob(id);
+    if (result.error) {
+      showToast(result.error, 'error');
+      return;
+    }
+    showToast('Vaga excluída', 'info');
+    loadJobs();
+  }
+
+  function openEdit(id, list) {
+    const v = list.find(x => x.id === id);
+    if (!v) return;
+    state.editingId = id;
+    document.getElementById('editLink').value = v.external_url;
+    document.getElementById('editTitle').value = v.title;
+    document.getElementById('editCompany').value = v.company;
+    document.getElementById('editLocation').value = v.location || '';
+    document.getElementById('editDesc').value = v.description || '';
+    document.getElementById('editModal').classList.remove('hidden');
+  }
+
+  document.getElementById('cancelEditBtn').addEventListener('click', () => {
+    document.getElementById('editModal').classList.add('hidden');
+    state.editingId = null;
+  });
+
+  document.getElementById('saveEditBtn').addEventListener('click', async () => {
+    const payload = {
+      external_url: document.getElementById('editLink').value,
+      title: document.getElementById('editTitle').value,
+      company: document.getElementById('editCompany').value,
+      location: document.getElementById('editLocation').value,
+      description: document.getElementById('editDesc').value,
+    };
+    const result = await updateJob(state.editingId, payload);
+    if (result.error) {
+      showToast(result.error, 'error');
+      return;
+    }
+    showToast('Alterações salvas', 'success');
+    document.getElementById('editModal').classList.add('hidden');
+    state.editingId = null;
+    loadJobs();
+  });
+
+  // ========== LEADS ==========
+  async function loadLeads() {
+    const { data, error } = await listLeads({ limit: 200 });
+    const body = document.getElementById('leadsTableBody');
+    if (error) {
+      body.innerHTML = `<tr><td colspan="5" class="text-muted">Erro: ${escape(error)}</td></tr>`;
+      return;
+    }
+    if (!data || data.length === 0) {
+      body.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Nenhum lead cadastrado ainda.</td></tr>';
+      return;
+    }
+    body.innerHTML = data.map(l => `
+      <tr>
+        <td><strong>${escape(l.email)}</strong></td>
+        <td>${escape(l.full_name || '—')}</td>
+        <td>${escape(l.phone || '—')}</td>
+        <td class="text-muted">${escape(l.utm_source || '—')}</td>
+        <td class="col-time">${formatRelative(l.created_at)}</td>
+      </tr>
+    `).join('');
+  }
+
+  // ========== AUDIT ==========
+  document.getElementById('auditFilter').addEventListener('change', e => {
+    state.auditFilter = e.target.value;
+    loadAudit();
+  });
+
+  async function loadAudit() {
+    const { data, error } = await listAuditLog({
+      limit: 100,
+      eventType: state.auditFilter || null,
+    });
+    const body = document.getElementById('auditTableBody');
+    if (error) {
+      body.innerHTML = `<tr><td colspan="5" class="text-muted">Erro: ${escape(error)}</td></tr>`;
+      return;
+    }
+    if (!data || data.length === 0) {
+      body.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Sem eventos.</td></tr>';
+      return;
+    }
+    body.innerHTML = data.map(e => `
+      <tr>
+        <td class="col-time">${formatTime(e.created_at)}</td>
+        <td><strong>${eventLabel(e.event_type)}</strong></td>
+        <td>${actorLabel(e)}</td>
+        <td>${escape(e.target_id ? e.target_id.substring(0, 8) + '...' : '—')}</td>
+        <td class="text-muted" style="max-width: 300px; overflow: hidden; text-overflow: ellipsis;">${eventDetail(e)}</td>
+      </tr>
+    `).join('');
+  }
+
+  // ========== HELPERS ==========
+  function eventLabel(t) {
+    const labels = {
+      'auth.login': '🔐 Login admin',
+      'auth.logout': '🚪 Logout',
+      'auth.failed': '⚠️ Login falhou',
+      'job.created': '➕ Vaga criada',
+      'job.updated': '✎ Vaga editada',
+      'job.published': '✓ Vaga publicada',
+      'job.unpublished': '◌ Vaga despublicada',
+      'job.deleted': '🗑 Vaga deletada',
+      'lead.access_granted': '🎟️ Acesso concedido',
+      'lead.page_viewed': '👀 Página vista',
+      'lead.job_clicked': '👉 Vaga clicada',
+      'admin.user_added': '👤 Admin adicionado',
+      'admin.user_removed': '👤 Admin removido',
+    };
+    return labels[t] || t;
+  }
+  function actorLabel(e) {
+    if (e.actor_user_id) return '<span class="tag tag-primary">admin</span>';
+    if (e.actor_lead_id) return '<span class="tag tag-soft">lead</span>';
+    return '<span class="text-muted">—</span>';
+  }
+  function eventDetail(e) {
+    if (!e.metadata || Object.keys(e.metadata).length === 0) return '—';
+    const m = e.metadata;
+    if (m.title) return `"${escape(m.title)}"`;
+    if (m.changes) return `Mudou: ${Object.keys(m.changes).join(', ')}`;
+    return escape(JSON.stringify(m).substring(0, 60));
+  }
+  function formatTime(iso) {
+    const d = new Date(iso);
+    return d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+  }
+  function formatRelative(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    if (isNaN(d)) return '—';
+    const diff = Math.floor((Date.now() - d) / (1000 * 60 * 60));
+    if (diff < 1) return 'agora';
+    if (diff < 24) return `há ${diff}h`;
+    const dias = Math.floor(diff / 24);
+    if (dias === 1) return 'ontem';
+    if (dias < 7) return `há ${dias}d`;
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+  }
+  function escape(s) {
+    return (s || '').toString().replace(/[&<>"']/g, m => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[m]);
+  }
+  function showToast(msg, tipo = 'info') {
+    const cont = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${tipo}`;
+    const icons = { success: '✓', error: '✕', info: 'ℹ' };
+    toast.innerHTML = `<strong>${icons[tipo]}</strong><span>${escape(msg)}</span>`;
+    cont.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add('fading');
+      setTimeout(() => toast.remove(), 250);
+    }, 3500);
+  }
+
+  // ========== LOGOUT ==========
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    if (confirm('Sair do painel admin?')) {
+      await logout();
+    }
+  });
+
+  // INIT
+  switchTab('dashboard');
+</script>
+
+</body>
+</html>

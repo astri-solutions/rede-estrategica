@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Login Admin · Astri Vagas RI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/astri.css">
+
+<style>
+  body {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0, 216, 101, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(11, 91, 104, 0.06) 0%, transparent 40%),
+      linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-secondary-deep) 100%);
+    color: var(--text-on-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .login-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    max-width: 460px;
+    width: 100%;
+  }
+  .login-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    color: var(--text-on-dark);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .login-logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--brand-primary);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-secondary-deep);
+    font-weight: 900;
+    font-size: 18px;
+  }
+  .login-card h1 {
+    color: var(--text-on-dark);
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  .login-card h1 .highlight { color: var(--brand-primary); }
+  .login-card .subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 28px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .login-card .form-label {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .login-card .form-control {
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--text-on-dark);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .login-card .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .login-card .form-control:focus {
+    background: rgba(0, 0, 0, 0.35);
+    border-color: var(--brand-primary);
+  }
+  .reason-banner {
+    background: rgba(214, 69, 69, 0.15);
+    border: 1px solid rgba(214, 69, 69, 0.3);
+    color: #ffb4b4;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .success-banner {
+    background: rgba(0, 216, 101, 0.12);
+    border: 1px solid rgba(0, 216, 101, 0.3);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: center;
+  }
+  .success-banner .icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    background: var(--brand-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-secondary-deep);
+  }
+  .success-banner h2 {
+    color: var(--text-on-dark);
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .success-banner p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .footer-note {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="login-card">
+
+  <div class="login-logo">
+    <div class="login-logo-mark">A</div>
+    Astri · Vagas RI
+  </div>
+
+  <div id="reasonBanner" class="reason-banner hidden"></div>
+
+  <div id="formStep">
+    <h1>Acesso <span class="highlight">administrativo</span></h1>
+    <p class="subtitle">
+      Entre com seu email cadastrado. Enviaremos um link mágico para você acessar o painel sem precisar de senha.
+    </p>
+
+    <div class="form-field">
+      <label class="form-label" for="emailInput">Email</label>
+      <input
+        type="email"
+        id="emailInput"
+        class="form-control"
+        placeholder="seu.email@astri.solutions"
+        autocomplete="email"
+        autocapitalize="off"
+        spellcheck="false"
+        required
+      >
+    </div>
+
+    <button id="submitBtn" class="btn btn-primary btn-block">
+      <span id="submitText">Enviar link de acesso</span>
+      <span id="submitLoader" class="loader-spinner hidden"></span>
+    </button>
+  </div>
+
+  <div id="successStep" class="success-banner hidden">
+    <div class="icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+    <h2>Verifique seu email</h2>
+    <p>
+      Enviamos um link de acesso para <strong id="sentEmail"></strong>.<br>
+      Clique no link em até 1 hora para entrar no painel.
+    </p>
+  </div>
+
+  <div class="footer-note">
+    🔒 Apenas usuários previamente cadastrados como administradores podem acessar.<br>
+    Em caso de dúvidas, entre em contato com o responsável pelo sistema.
+  </div>
+
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script type="module">
+  import { sendMagicLink } from '../assets/js/auth.js';
+  import { getSession } from '../assets/js/auth.js';
+
+  // Se já está logado, redireciona para o admin
+  (async () => {
+    const session = await getSession();
+    if (session) {
+      window.location.href = window.ASTRI_CONFIG.ROUTES.ADMIN;
+    }
+  })();
+
+  // Mostra motivo do redirecionamento (se houver)
+  const params = new URLSearchParams(window.location.search);
+  const reason = params.get('reason');
+  if (reason) {
+    const banner = document.getElementById('reasonBanner');
+    banner.textContent = reason;
+    banner.classList.remove('hidden');
+  }
+
+  const submitBtn = document.getElementById('submitBtn');
+  const submitText = document.getElementById('submitText');
+  const submitLoader = document.getElementById('submitLoader');
+  const emailInput = document.getElementById('emailInput');
+
+  async function handleSubmit() {
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      showToast('Email inválido', 'error');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitText.textContent = 'Enviando...';
+    submitLoader.classList.remove('hidden');
+
+    const result = await sendMagicLink(email);
+
+    submitBtn.disabled = false;
+    submitText.textContent = 'Enviar link de acesso';
+    submitLoader.classList.add('hidden');
+
+    if (result.error) {
+      // Por segurança, não revelamos se o email existe ou não.
+      // Mostramos a tela de sucesso de qualquer forma (a menos que seja rate limit).
+      if (result.error.includes('Aguarde')) {
+        showToast(result.error, 'error');
+        return;
+      }
+    }
+
+    // Sucesso (real ou simulado por segurança)
+    document.getElementById('sentEmail').textContent = email;
+    document.getElementById('formStep').classList.add('hidden');
+    document.getElementById('successStep').classList.remove('hidden');
+  }
+
+  submitBtn.addEventListener('click', handleSubmit);
+  emailInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleSubmit();
+  });
+
+  function showToast(msg, tipo = 'info') {
+    const cont = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${tipo}`;
+    const icons = { success: '✓', error: '✕', info: 'ℹ' };
+    toast.innerHTML = `<strong>${icons[tipo]}</strong><span>${msg}</span>`;
+    cont.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add('fading');
+      setTimeout(() => toast.remove(), 250);
+    }, 3500);
+  }
+</script>
+
+</body>
+</html>
